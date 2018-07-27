@@ -36,7 +36,10 @@ class SenhasController extends Controller
     public function store(Request $request){
         $recurso = new Senhas();
         $newresource = $request->toarray();
-        
+
+        for($i=0;$i<count($newresource['records']);$i++)
+            $newresource['records'][$i]['ip'] = $_SERVER['REMOTE_ADDR'];
+
         $rest = new Rest();
         $rest->model = 'App\Models\Senhas';
         $rest->input = $newresource;
